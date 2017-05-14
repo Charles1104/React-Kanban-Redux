@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import CardList from '../../components/CardList';
+import KanbanMap from '../../components/KanbanMap';
 import NewCardForm from '../NewCardForm';
 import { addCardToFakeXHR, getCardsFromFakeXHR } from '../../lib/cards.db';
 import { loadCards, addCard } from '../../actions';
-
 
 import logo from './logo.svg';
 import './styles.css';
@@ -30,7 +29,6 @@ class App extends Component {
   }
 
   addCard = ( card ) => {
-
     this.props.addCard( card );
   }
 
@@ -41,8 +39,8 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
-        <CardList cards={this.props.cards} />
         <NewCardForm addCard={this.addCard} />
+        <KanbanMap cards={this.props.cards} />
       </div>
     );
   }

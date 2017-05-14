@@ -6,6 +6,7 @@ import {
 const initialState = {
   cards : []
 };
+
 const cards = (state = initialState, action) => {
   console.log("state", state);
   console.log("action", action);

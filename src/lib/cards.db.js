@@ -15,9 +15,12 @@ const cardsFromFakeDB = [{
   }
 ];
 
-export const getCardsFromFakeXHR = () => new Promise((resolve, reject) => {
-  setTimeout(() => resolve(cardsFromFakeDB), 500);
-});
+export const getCardsFromFakeXHR = () => {
+  return fetch('http://localhost:5000/api/cards').then( res => res.json());
+};
+// export const getCardsFromFakeXHR = () => new Promise((resolve, reject) => {
+//   setTimeout(() => resolve(cardsFromFakeDB), 500);
+// });
 
 export const addCardToFakeXHR = (card) => new Promise((resolve, reject) => {
   setTimeout(() => {
