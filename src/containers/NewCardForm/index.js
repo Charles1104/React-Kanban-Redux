@@ -24,7 +24,6 @@ class NewCardForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.state.status = "Queue";
 
     fetch("/api/cards/",
     {

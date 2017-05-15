@@ -78,10 +78,10 @@ h3 {
   margin-left: 30px;
   margin-top: 19%;
   -webkit-transform: rotate(-5.5deg); }
-  .text p {
+.text p {
     margin-top: 6px;
     margin-bottom: 6px; }
-    .text p span {
+.text p span {
       font-weight: bold; }
 
 .addPanel {

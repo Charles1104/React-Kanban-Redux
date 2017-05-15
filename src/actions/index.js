@@ -1,5 +1,6 @@
 export const LOAD_CARDS = 'LOAD_CARDS';
 export const ADD_CARD = 'ADD_CARD';
+export const LOGIN = 'LOGIN';
 
 export const loadCards = cards => {
   return {
@@ -14,5 +15,6 @@ export const addCard = card => {
     type: ADD_CARD,
     card
   };
-
 };
+
+export const signin = () => ({ type: LOGIN });

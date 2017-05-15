@@ -16,7 +16,7 @@
 // ];
 
 export const getCardsFromFakeXHR = () => {
-  return fetch('http://localhost:5000/api/cards').then( res => res.json());
+  return fetch('/api/cards').then( res => res.json());
 };
 // export const getCardsFromFakeXHR = () => new Promise((resolve, reject) => {
 //   setTimeout(() => resolve(cardsFromFakeDB), 500);

@@ -31,7 +31,7 @@ cards.post('/', (req,res) =>{
   Card.create( {
       "name" : req.body.name,
       "priority" : req.body.priority,
-      "status" : req.body.status,
+      "status" : "Queue",
       "assigned_to" : req.body.assigned_to,
       "created_by" : req.body.created_by,
       })
