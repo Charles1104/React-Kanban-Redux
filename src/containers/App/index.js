@@ -2,45 +2,122 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import KanbanMap from '../../components/KanbanMap';
 import NewCardForm from '../NewCardForm';
-import { addCardToFakeXHR, getCardsFromFakeXHR } from '../../lib/cards.db';
-import { loadCards, addCard } from '../../actions';
+import { getCardsFromFakeXHR } from '../../lib/cards.db';
+import { loadCards } from '../../actions';
 
-import logo from './logo.svg';
 import './styles.css';
 
 class App extends Component {
   constructor(props){
-    // give props to your parents
     super(props);
-    // do your shit after parent is done doing their shit
-
     this.name = 'Card List App';
+
+    this.state = {
+      cards : [],
+    };
+
+    this.fetchMove= this.fetchMove.bind(this);
+    this.fetchDel= this.fetchDel.bind(this);
+    this.moveRight= this.moveRight.bind(this);
+    this.moveLeft= this.moveLeft.bind(this);
+    this.del= this.del.bind(this);
 
   }
 
-  // life cycle hook
-  // before rendering this component
   componentWillMount(){
     getCardsFromFakeXHR()
       .then( cards => {
         this.props.loadCards( cards );
-        // this.setState({ books });
+        this.setState({ cards });
       });
   }
 
-  addCard = ( card ) => {
-    this.props.addCard( card );
+  del(id){
+    let cardArray = this.state.cards.slice(0);
+    let cardToDelete = null;
+    for(var i=0; i < cardArray.length; i++){
+      if(cardArray[i].id === id){
+      cardToDelete = cardArray[i].id;
+      cardArray.splice(i,1);
+      break;
+      }
+    }
+    this.fetchDel(`/api/cards/${cardToDelete}`)
+  }
+
+  fetchDel(path){
+    fetch(path,{
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "DELETE",
+    })
+    .then(function(res){ return res.json(); })
+    .then(() => getCardsFromFakeXHR()
+      .then( cards => {
+        this.props.loadCards( cards );
+      })
+    );
+  }
+
+  moveRight(id){
+    let cardArray = this.state.cards.slice(0);
+    let cardToUpdate = null;
+    for(var i=0; i < cardArray.length; i++){
+      if(cardArray[i].id === id){
+        if(cardArray[i].status === "Queue"){
+          cardArray[i].status = "Progress";
+        } else{
+          cardArray[i].status = "Done";
+        }
+        cardToUpdate = cardArray[i];
+        break;
+      }
+    }
+    this.fetchMove(`/api/cards/${cardToUpdate.id}`, cardArray, cardToUpdate)
+  }
+
+  moveLeft(id){
+    let cardArray = this.state.cards.slice(0);
+    let cardToUpdate = null;
+    for(var i=0; i < cardArray.length; i++){
+      if(cardArray[i].id === id){
+        if(cardArray[i].status === "Done"){
+          cardArray[i].status = "Progress";
+        } else{
+          cardArray[i].status = "Queue";
+        }
+        cardToUpdate = cardArray[i];
+        break;
+      }
+    }
+    this.fetchMove(`/api/cards/${cardToUpdate.id}`, cardArray, cardToUpdate)
+  }
+
+  fetchMove(path, cardArray, cardToUpdate){
+    fetch(path,{
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "PUT",
+      body: JSON.stringify({"status":cardToUpdate.status})
+    })
+    .then(function(res){ return res.json(); })
+    .then(() => getCardsFromFakeXHR()
+      .then( cards => {
+          this.props.loadCards( cards );
+      })
+    );
   }
 
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <NewCardForm addCard={this.addCard} />
-        <KanbanMap cards={this.props.cards} />
+        <h1>KANBAN - CARDS</h1>
+        <NewCardForm />
+        <KanbanMap cards={this.props.cards} right={this.moveRight} left={this.moveLeft} del={this.del}/>
       </div>
     );
   }
@@ -56,9 +133,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     loadCards: cards => {
       dispatch(loadCards(cards))
-    },
-    addCard: card => {
-      dispatch(addCard(card))
     }
   }
 }

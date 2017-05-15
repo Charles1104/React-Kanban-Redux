@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { addCard } from '../../actions';
+import { connect } from 'react-redux';
 
 class NewCardForm extends Component {
 
   constructor(props){
     super(props);
 
-    // set the initial state
     this.state = {
       id: "",
       name: "",
@@ -21,21 +22,6 @@ class NewCardForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  addCard(card){
-    this.props.addCard(card);
-
-    const name = "";
-    const priority = "";
-    const created_by = "";
-    const assigned_to = "";
-    this.setState({
-      name,
-      priority,
-      created_by,
-      assigned_to
-    });
-  }
-
   handleSubmit(event) {
     event.preventDefault();
     this.state.status = "Queue";
@@ -49,8 +35,8 @@ class NewCardForm extends Component {
       method: "POST",
       body: JSON.stringify(this.state)
     })
-    .then(() => fetch('/api/cards')).then( res => res.json())
-    .then((res) => this.addCard(res));
+    .then((res) => (res.json()))
+    .then((res) => this.props.addCard(res));
   }
 
   handleNameChange(event) {
@@ -89,4 +75,23 @@ class NewCardForm extends Component {
   }
 }
 
-export default NewCardForm;
+const mapStateToProps = (state) => {
+  return {
+    cards: state.cards
+  };
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    addCard: card => {
+      dispatch(addCard(card))
+    }
+  }
+}
+
+const ConnectedForm = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NewCardForm);
+
+export default ConnectedForm;

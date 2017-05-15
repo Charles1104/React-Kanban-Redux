@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import cardListReducers from './reducers';
 import App from './containers/App';
-import './index.css';
 
 const store = createStore(
   cardListReducers

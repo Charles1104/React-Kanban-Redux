@@ -8,8 +8,6 @@ const initialState = {
 };
 
 const cards = (state = initialState, action) => {
-  console.log("state", state);
-  console.log("action", action);
 
   switch(action.type){
     case LOAD_CARDS:
@@ -18,9 +16,11 @@ const cards = (state = initialState, action) => {
       });
 
     case ADD_CARD:
+      console.log(action.card);
       return Object.assign({}, state, {
         cards : state.cards.concat(action.card)
       });
+
 
     default:
       return state;

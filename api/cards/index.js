@@ -36,7 +36,7 @@ cards.post('/', (req,res) =>{
       "created_by" : req.body.created_by,
       })
     .then(res.json.bind(res))
-    .catch( res.json.bind(res));
+    .catch(res.json.bind(res));
 });
 
 cards.put('/:id', (req,res) =>{

@@ -3,12 +3,11 @@ import CardListQueue from './CardListQueue.js'
 import CardListProgress from './CardListProgress.js'
 import CardListDone from './CardListDone.js'
 
-
-const KanbanMap = ({ cards }) => (
+const KanbanMap = ({ cards, left, right, del }) => (
   <div className="mainPanel">
-    <CardListQueue cards={cards.filter(card => card.status === 'Queue')} />
-    <CardListProgress cards={cards.filter(card => card.status === 'Progress')} />
-    <CardListDone cards={cards.filter(card => card.status === 'Done')} />
+    <CardListQueue cards={cards.filter(card => card.status === 'Queue')} changeR={right} del={del}/>
+    <CardListProgress cards={cards.filter(card => card.status === 'Progress')} changeL={left} changeR={right} del={del}/>
+    <CardListDone cards={cards.filter(card => card.status === 'Done')} changeL={left} del={del}/>
   </div>
 );
 

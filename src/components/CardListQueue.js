@@ -1,11 +1,11 @@
 import React from 'react';
 import Card from './Card.js'
 
-const CardListQueue = ({ cards }) => (
+const CardListQueue = ({ cards, changeR, del }) => (
   <div className="list">
     <h2>QUEUE</h2>
     { cards
-      .map( card => <Card card={card} key={card.id}> </Card> )
+      .map( card => <Card card={card} key={card.id} del={del}> <input className="buttonR" type="button" onClick={() => changeR(card.id)} value="Move right"/></Card> )
     }
   </div>
 );
