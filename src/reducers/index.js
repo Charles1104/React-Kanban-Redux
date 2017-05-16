@@ -1,12 +1,13 @@
 import {
   LOAD_CARDS,
   ADD_CARD,
-  LOGIN
+  LOGIN,
+  LOGOUT
 } from '../actions';
 
 const initialState = {
   cards : [],
-  login : {username:"", loggedIn: false}
+  login : {username: localStorage.username, loggedIn: localStorage.logged}
 };
 
 const cards = (state = initialState, action) => {
@@ -18,7 +19,6 @@ const cards = (state = initialState, action) => {
       });
 
     case ADD_CARD:
-      console.log(action.card);
       return Object.assign({}, state, {
         cards : state.cards.concat(action.card)
       });
@@ -27,6 +27,12 @@ const cards = (state = initialState, action) => {
       return Object.assign({}, state, {
         login : {loggedIn: true,
                 username:localStorage.username}
+      });
+
+    case LOGOUT:
+      return Object.assign({}, state, {
+        login : {loggedIn: false,
+                username:""}
       });
 
     default:

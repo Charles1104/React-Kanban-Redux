@@ -31,7 +31,7 @@ app.use(session({
   store: new RedisStore(),
   secret: 'keyboard_cat',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
 }));
 
 // setup passport
@@ -72,6 +72,7 @@ passport.serializeUser(function(user, done) {
   console.log('serializing');
 // ^ ---------- given from authentication strategy
   // building the object to serialize to save
+  console.log(user);
   return done(null, {
     id: user.id,
     username: user.username
@@ -86,10 +87,17 @@ passport.deserializeUser(function(user, done) {
       id: user.id
     }
   }).then(user => {
+    console.log("hi");
     return done(null, user); // <------- inserts into the request object
   });
 });
 
+app.get('/api/logout', function (req, res){
+  console.log(req.isAuthenticated());
+  req.logout();
+  console.log(req.isAuthenticated());
+  res.send({success : true});
+});
 
 app.use(express.static('./public') );
 

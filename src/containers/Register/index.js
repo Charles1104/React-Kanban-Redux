@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { signin } from '../../actions';
 import { connect } from 'react-redux';
 
-class NewLogin extends React.Component {
+class Register extends React.Component {
   constructor(props){
     super(props);
 
@@ -24,14 +24,10 @@ class NewLogin extends React.Component {
     this.setState({ password : event.target.value });
   }
 
-  logg(){
-    this.props.signin();
-  }
-
   handleSubmit(event) {
     event.preventDefault();
 
-    fetch("/api/login",
+    fetch("/api/users",
     {
       headers: {
         'Accept': 'application/json',
@@ -43,11 +39,9 @@ class NewLogin extends React.Component {
     .then( data => {
       data.json()
         .then(data => {
-          if(data.success === true){
             localStorage.setItem('logged', true);
             localStorage.setItem('username', this.state.username);
-            this.logg();
-          }
+            this.props.signin();
         })
     })
   }
@@ -55,10 +49,10 @@ class NewLogin extends React.Component {
   render(){
     return (
       <div >
-        <form className="loginPanel" onSubmit={this.handleSubmit}>
+        <form className="registerPanel" onSubmit={this.handleSubmit}>
           <input type="text" placeholder="username" onChange={this.handleUsernameChange} value={this.state.username} />
           <input type="password" placeholder="password " onChange={this.handlePasswordChange} value={this.state.password} />
-          <button className="buttonL" type="submit">Log In</button>
+          <button className="buttonL" type="submit">Sign Up</button>
         </form>
       </div>
     )
@@ -79,9 +73,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-const LoginForm = connect(
+const RegisterForm = connect(
   mapStateToProps,
   mapDispatchToProps
-)(NewLogin);
+)(Register);
 
-export default LoginForm;
+export default RegisterForm;

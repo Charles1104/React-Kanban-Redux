@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import KanbanMap from '../../components/KanbanMap';
 import NewCardForm from '../NewCardForm';
 import NewLogin from '../NewLogin';
+import Register from '../Register';
 import { getCardsFromFakeXHR } from '../../lib/cards.db';
-import { loadCards } from '../../actions';
+import { loadCards, signout } from '../../actions';
 
 import './styles.css';
 
@@ -18,6 +19,7 @@ class App extends Component {
     this.moveRight= this.moveRight.bind(this);
     this.moveLeft= this.moveLeft.bind(this);
     this.del= this.del.bind(this);
+    this.fetchLogout= this.fetchLogout.bind(this);
   }
 
   componentWillMount(){
@@ -67,7 +69,6 @@ class App extends Component {
           cardArray[i].status = "Done";
         }
         cardToUpdate = cardArray[i];
-        console.log(cardToUpdate);
         break;
       }
     }
@@ -100,7 +101,6 @@ class App extends Component {
       method: "PUT",
       body: JSON.stringify({"status":cardToUpdate.status})
     })
-    .then(function(res){ return res.json(); })
     .then(() => getCardsFromFakeXHR()
       .then( cards => {
           this.props.loadCards( cards );
@@ -108,21 +108,43 @@ class App extends Component {
     );
   }
 
+  fetchLogout (){
+    fetch('/api/logout')
+    .then(() => {
+      localStorage.clear();
+      this.props.signout();
+    })
+  }
+
   render() {
-    return (
-      <div className="App">
-        <h1>KANBAN - CARDS</h1>
-        <NewLogin />
-        <NewCardForm />
-        <KanbanMap cards={this.props.cards} right={this.moveRight} left={this.moveLeft} del={this.del}/>
-      </div>
-    );
+    if(this.props.login.loggedIn){
+      return (
+        <div className="App">
+          <h1>KANBAN - CARDS</h1>
+          <div className="LogHeader">
+            <p>You are logged in as {this.props.login.username}</p>
+            <input className="logout" type="button" onClick={ this.fetchLogout } value="Log out"/>
+          </div>
+          <NewCardForm />
+          <KanbanMap cards={this.props.cards} right={this.moveRight} left={this.moveLeft} del={this.del}/>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <h1>KANBAN - CARDS</h1>
+          <NewLogin />
+          <Register />
+        </div>
+      )
+    }
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    cards: state.cards
+    cards: state.cards,
+    login: state.login
   };
 }
 
@@ -130,6 +152,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     loadCards: cards => {
       dispatch(loadCards(cards))
+    },
+    signout: () => {
+      dispatch(signout())
     }
   }
 }

@@ -74,15 +74,20 @@ h3 {
   background-color: #75746E;
   color: white; }
 
-.text {
+.text{
   margin-left: 30px;
   margin-top: 19%;
-  -webkit-transform: rotate(-5.5deg); }
-  .text p {
+  -webkit-transform: rotate(-5.5deg);
+
+  p{
     margin-top: 6px;
-    margin-bottom: 6px; }
-    .text p span {
-      font-weight: bold; }
+    margin-bottom: 6px;
+    span{
+      font-weight: bold;
+    }
+  }
+}
+
 
 .addPanel {
   display: flex;
