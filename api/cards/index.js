@@ -43,7 +43,7 @@ cards.put('/:id', (req,res) =>{
   Card.update({"status": req.body.status},{where: {"id": req.params.id}})
   .then(res.json.bind(res))
   .catch(error => {
-    console.log(error);
+    console.log("PUT ERROR",error);
   });
 });
 

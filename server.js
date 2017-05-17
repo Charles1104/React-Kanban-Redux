@@ -8,7 +8,6 @@ const db = require('./models');
 const fs = require('fs');
 
 const methodOverride = require('method-override');
-const cookieParser = require('cookie-parser');
 
 app.use( bodyParser.json() );
 
@@ -72,9 +71,7 @@ passport.serializeUser(function(user, done) {
   console.log('serializing');
 // ^ ---------- given from authentication strategy
   // building the object to serialize to save
-  console.log(user);
   return done(null, {
-    id: user.id,
     username: user.username
   });
 });
@@ -82,9 +79,9 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(user, done) {
   console.log('deserializing');
   // ^ ---------- given from serializeUser
-  User.findOne({
+  db.User.findOne({
     where: {
-      id: user.id
+      username: user.username
     }
   }).then(user => {
     console.log("hi");

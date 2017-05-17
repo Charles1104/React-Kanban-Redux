@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { signin } from '../../actions';
 import { connect } from 'react-redux';
 
@@ -34,6 +34,7 @@ class Register extends React.Component {
         'Content-Type': 'application/json'
       },
       method: "POST",
+      credentials: 'include',
       body: JSON.stringify(this.state)
     })
     .then( data => {
@@ -49,9 +50,11 @@ class Register extends React.Component {
   render(){
     return (
       <div >
-        <form className="registerPanel" onSubmit={this.handleSubmit}>
-          <input type="text" placeholder="username" onChange={this.handleUsernameChange} value={this.state.username} />
-          <input type="password" placeholder="password " onChange={this.handlePasswordChange} value={this.state.password} />
+        <form className="loginPanel" onSubmit={this.handleSubmit}>
+          <div className="registerInput">
+            <input type="text" placeholder="username" onChange={this.handleUsernameChange} value={this.state.username} />
+            <input type="password" placeholder="password " onChange={this.handlePasswordChange} value={this.state.password} />
+          </div>
           <button className="buttonL" type="submit">Sign Up</button>
         </form>
       </div>

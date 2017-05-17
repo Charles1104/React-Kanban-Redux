@@ -17,25 +17,14 @@ class NewCardForm extends Component {
 
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handlePriorityChange = this.handlePriorityChange.bind(this);
-    this.handleCreatedByChange = this.handleCreatedByChange.bind(this);
     this.handleAssignedToChange = this.handleAssignedToChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(event) {
     event.preventDefault();
-
-    fetch("/api/cards/",
-    {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: "POST",
-      body: JSON.stringify(this.state)
-    })
-    .then((res) => (res.json()))
-    .then((res) => this.props.addCard(res));
+    this.state.created_by= localStorage.username;
+    this.props.addCard(this.state);
   }
 
   handleNameChange(event) {
@@ -44,10 +33,6 @@ class NewCardForm extends Component {
 
   handlePriorityChange(event) {
     this.setState({ priority : event.target.value });
-  }
-
-  handleCreatedByChange(event) {
-    this.setState({ created_by : event.target.value });
   }
 
   handleAssignedToChange(event) {
@@ -65,7 +50,6 @@ class NewCardForm extends Component {
             <option value="normal">Normal</option>
             <option value="urgent">Urgent</option>
           </select>
-          <input type="text" placeholder="created_by " onChange={this.handleCreatedByChange} value={this.state.created_by} />
           <input type="text" placeholder="assigned_to" onChange={this.handleAssignedToChange} value={this.state.assigned_to} />
           <button className="buttonL" type="submit">Add Card</button>
         </form>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { signin } from '../../actions';
 import { connect } from 'react-redux';
 
@@ -38,6 +38,7 @@ class NewLogin extends React.Component {
         'Content-Type': 'application/json'
       },
       method: "POST",
+      credentials: 'include',
       body: JSON.stringify(this.state)
     })
     .then( data => {
@@ -56,8 +57,10 @@ class NewLogin extends React.Component {
     return (
       <div >
         <form className="loginPanel" onSubmit={this.handleSubmit}>
-          <input type="text" placeholder="username" onChange={this.handleUsernameChange} value={this.state.username} />
-          <input type="password" placeholder="password " onChange={this.handlePasswordChange} value={this.state.password} />
+          <div className="loginInput">
+            <input type="text" placeholder="username" onChange={this.handleUsernameChange} value={this.state.username} />
+            <input type="password" placeholder="password " onChange={this.handlePasswordChange} value={this.state.password} />
+          </div>
           <button className="buttonL" type="submit">Log In</button>
         </form>
       </div>
@@ -67,7 +70,7 @@ class NewLogin extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    login: state.login
+    login: state.users.loggedIn
   };
 }
 
