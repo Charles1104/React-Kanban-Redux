@@ -11,7 +11,6 @@ class NewCardForm extends Component {
       id: "",
       name: "",
       priority: "",
-      created_by : "",
       assigned_to: ""
     };
 
@@ -23,7 +22,6 @@ class NewCardForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.state.created_by= localStorage.username;
     this.props.addCard(this.state);
     this.reset();
   }
@@ -33,7 +31,6 @@ class NewCardForm extends Component {
       id: "",
       name: "",
       priority: "",
-      created_by : "",
       assigned_to: ""
     })
   }

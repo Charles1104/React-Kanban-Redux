@@ -19,7 +19,8 @@ users.get('/:id', (req,res) => {
     //User.findById
       .then((user) => {
         res.json(user);
-      });
+      })
+      .catch(console.log);
   } else {
     User.findOne({
       where: {username: req.params.id},
@@ -27,7 +28,8 @@ users.get('/:id', (req,res) => {
     //User.findById
       .then((user) => {
         res.json(user);
-      });
+      })
+      .catch(console.log);
   }
 });
 
@@ -45,11 +47,20 @@ users.post('/', (req,res) =>{
     bcrypt.hash(req.body.password, salt, function(err, hash) {
       User.create( {
         "username" : req.body.username,
+        "role": req.body.role,
         "password": hash,
       })
         .then(res.json.bind(res))
         .catch(res.json.bind(res));
     });
+  });
+});
+
+users.delete('/:id', (req,res) =>{
+  User.destroy({where: {"id": req.params.id}})
+  .then(res.json.bind(res))
+  .catch(error => {
+    console.log(error);
   });
 });
 

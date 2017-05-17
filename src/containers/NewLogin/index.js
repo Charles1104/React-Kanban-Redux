@@ -24,33 +24,9 @@ class NewLogin extends React.Component {
     this.setState({ password : event.target.value });
   }
 
-  logg(){
-    this.props.signin();
-  }
-
   handleSubmit(event) {
     event.preventDefault();
-
-    fetch("/api/login",
-    {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: "POST",
-      credentials: 'include',
-      body: JSON.stringify(this.state)
-    })
-    .then( data => {
-      data.json()
-        .then(data => {
-          if(data.success === true){
-            localStorage.setItem('logged', true);
-            localStorage.setItem('username', this.state.username);
-            this.logg();
-          }
-        })
-    })
+    this.props.signin(this.state)
   }
 
   render(){
@@ -70,14 +46,13 @@ class NewLogin extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    login: state.users.loggedIn
   };
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    signin: () => {
-      dispatch(signin())
+    signin: (body) => {
+      dispatch(signin(body))
     }
   }
 }

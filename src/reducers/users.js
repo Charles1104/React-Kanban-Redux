@@ -2,7 +2,8 @@ import {LOGIN, LOGOUT} from '../actions';
 
 const initialState = {
   username: localStorage.username,
-  loggedIn: localStorage.logged
+  loggedIn: localStorage.logged,
+  role: localStorage.role
 };
 
 const users = (state = initialState, action) => {
@@ -17,7 +18,8 @@ const users = (state = initialState, action) => {
     case LOGIN:
       return Object.assign({}, state, {
         loggedIn: true,
-        username: localStorage.username
+        username: localStorage.username,
+        role: localStorage.role
       });
 
     default:

@@ -1,5 +1,5 @@
 import React from 'react';
-import { signin } from '../../actions';
+import { signup } from '../../actions';
 import { connect } from 'react-redux';
 
 class Register extends React.Component {
@@ -26,25 +26,8 @@ class Register extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-
-    fetch("/api/users",
-    {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: "POST",
-      credentials: 'include',
-      body: JSON.stringify(this.state)
-    })
-    .then( data => {
-      data.json()
-        .then(data => {
-            localStorage.setItem('logged', true);
-            localStorage.setItem('username', this.state.username);
-            this.props.signin();
-        })
-    })
+    this.state.role= "U";
+    this.props.signup(this.state);
   }
 
   render(){
@@ -70,8 +53,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    signin: () => {
-      dispatch(signin())
+    signup: (body) => {
+      dispatch(signup(body))
     }
   }
 }

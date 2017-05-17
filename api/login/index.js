@@ -9,7 +9,7 @@ const passport = require('passport');
 
 // POST
 login.post('/', passport.authenticate('local'), (req, res) => {
-  res.json({success:true});
+  res.redirect(`/api/users/${req.user.username}`);
 });
 
 module.exports = login;

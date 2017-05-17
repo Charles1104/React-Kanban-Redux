@@ -1,4 +1,6 @@
-import { getCardsFromDB, addCardtoDB, fetchDel, fetchMove, fetchSignout } from '../fetch/fetch.db';
+/*jshint esversion: 6 */
+
+import { getCardsFromDB, addCardtoDB, fetchDel, fetchMove, fetchSignout, fetchSignin, fetchSignup } from '../fetch/fetch.db';
 
 export const LOAD_CARDS = 'LOAD_CARDS';
 export const ADD_CARD = 'ADD_CARD';
@@ -15,7 +17,8 @@ export const loadCards = () => {
           type: LOAD_CARDS,
           cards
         });
-      });
+      })
+      .catch(err => console.log(err));
   };
 };
 
@@ -28,7 +31,8 @@ export const addCard = card => {
           type: ADD_CARD,
           card
         });
-      });
+      })
+      .catch(err => console.log(err));
   };
 };
 
@@ -40,7 +44,8 @@ export const remove = card => {
           type: DEL_CARD,
           card
         });
-      });
+      })
+      .catch(err => console.log(err));
   };
 };
 
@@ -52,19 +57,47 @@ export const move = card => {
           type: MOV_CARD,
           card
         });
-      });
+      })
+      .catch(err => console.log(err));
   };
 };
 
 export const signout = () => {
   return dispatch => {
     return fetchSignout()
-      .then(card => {
+      .then( () => {
         dispatch({
           type: LOGOUT,
         });
-      });
+      })
+      .catch(err => console.log(err));
   };
 };
 
-export const signin = () => ({ type: LOGIN });
+export const signin = body => {
+  return dispatch => {
+    return fetchSignin(body)
+      .then( () => {
+        dispatch({
+          type: LOGIN,
+        });
+      })
+      .catch(err => console.log(err));
+  };
+};
+
+export const signup = body => {
+  return dispatch => {
+    return fetchSignup(body)
+      .then( () => {
+        fetchSignin(body)
+        .then( () => {
+          dispatch({
+          type: LOGIN,
+          });
+        })
+        .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
+  };
+};

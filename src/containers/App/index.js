@@ -34,7 +34,6 @@ class App extends Component {
     this.props.remove(cardToDelete)
   }
 
-
   moveRight(id){
     let cardArray = this.props.cards.slice(0);
     let cardToUpdate = null;
@@ -75,7 +74,9 @@ class App extends Component {
         <div className="App">
           <h1>KANBAN - CARDS</h1>
           <div className="LogHeader">
-            <p>You are logged in as {this.props.username}</p>
+
+            <p>You are logged in as {this.props.username} and you have
+            {this.props.username === 'Charly' ? ' ADMIN rights' : ' USER rights'} </p>
             <input className="logout" type="button" onClick={this.props.signout} value="Log out"/>
           </div>
           <NewCardForm />
