@@ -25,6 +25,17 @@ class NewCardForm extends Component {
     event.preventDefault();
     this.state.created_by= localStorage.username;
     this.props.addCard(this.state);
+    this.reset();
+  }
+
+  reset(){
+    this.setState({
+      id: "",
+      name: "",
+      priority: "",
+      created_by : "",
+      assigned_to: ""
+    })
   }
 
   handleNameChange(event) {
