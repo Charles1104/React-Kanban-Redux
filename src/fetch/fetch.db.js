@@ -57,6 +57,23 @@ export const fetchDel = (cardToDelete) => {
     });
 };
 
+export const fetchDelU = (userToDelete) => {
+  return fetch(`/api/users/${userToDelete.username}`,{
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "DELETE",
+      credentials: 'include',
+    })
+    .then((res) => (res.json()))
+    .catch(err => {
+      console.log(err);
+      throw err;
+    });
+};
+
+
 export const fetchMove = (cardToUpdate) => {
   return fetch(`/api/cards/${cardToUpdate.id}`,{
       headers: {
@@ -108,6 +125,7 @@ export const fetchSignin = (body) => {
 };
 
 export const fetchSignup = (body) => {
+  body.role= "U";
   return fetch("/api/users",
     {
       headers: {

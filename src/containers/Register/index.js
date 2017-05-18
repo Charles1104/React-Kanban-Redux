@@ -26,7 +26,6 @@ class Register extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.state.role= "U";
     this.props.signup(this.state);
   }
 

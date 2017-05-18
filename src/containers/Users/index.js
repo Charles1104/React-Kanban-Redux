@@ -1,25 +1,46 @@
 import React from 'react';
-import { signup } from '../../actions';
+import { loadUsers, removeU } from '../../actions';
 import { connect } from 'react-redux';
+import User from '../../components/User';
 
-class Register extends React.Component {
+class Users extends React.Component {
   constructor(props){
     super(props);
 
-    componentWillMount(){
-      this.props.loadCards();
+    this.del= this.del.bind(this);
+  }
+
+
+  componentWillMount(){
+    this.props.loadUsers();
+  }
+
+  del(username){
+    let userArray = this.props.users.slice(0);
+    let userToDelete = null;
+    for(var i=0; i < userArray.length; i++){
+      if(userArray[i].username === username){
+      userToDelete = userArray[i];
+      userArray.splice(i,1);
+      break;
+      }
     }
+    this.props.removeU(userToDelete);
+  }
+
 
   render(){
     return (
       <div >
-        <form className="loginPanel" onSubmit={this.handleSubmit}>
-          <div className="registerInput">
-            <input type="text" placeholder="username" onChange={this.handleUsernameChange} value={this.state.username} />
-            <input type="password" placeholder="password " onChange={this.handlePasswordChange} value={this.state.password} />
-          </div>
-          <button className="buttonL" type="submit">Sign Up</button>
-        </form>
+        <h1>List of Users</h1>
+        { this.props.users
+            .map( user => <User user={user} key={user.username} >
+              {this.props.role === "A" &&
+              <input className="delUser" type="button" onClick={() => this.del(user.username)} value="Remove"/>
+              }
+
+              </User> )
+        }
       </div>
     )
   }
@@ -27,7 +48,7 @@ class Register extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    users: state.users.users
+    users: state.users.users,
     role: state.users.role
   };
 }
@@ -37,12 +58,15 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     loadUsers: users => {
       dispatch(loadUsers(users))
     },
+    removeU: user => {
+      dispatch(removeU(user))
+    },
   }
 }
 
-const UsersForm = connect(
+const connectedUsers = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Register);
+)(Users);
 
-export default UsersForm;
+export default connectedUsers;

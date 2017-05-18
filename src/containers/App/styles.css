@@ -60,7 +60,7 @@ h3 {
   -webkit-transform: rotate(-5.5deg);
   color: #1B8F15; }
 
-.buttonL, .buttonR {
+.buttonL, .buttonR, .delUser {
   font-family: 'Yrsa', serif;
   background-color: #DEE4E8;
   border: none;
@@ -73,7 +73,7 @@ h3 {
   cursor: pointer;
   border: 2px solid #555555; }
 
-.buttonL:hover, .buttonR:hover {
+.buttonL:hover, .buttonR:hover, .delUser:hover {
   background-color: #75746E;
   color: white; }
 
@@ -150,3 +150,19 @@ select {
 .loginInput, .registerInput {
   display: flex;
   flex-direction: column; }
+
+.user {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  border-top: black solid 2px;
+  padding-top: 7px; }
+  .user p {
+    font-size: 20px;
+    width: 30%;
+    margin: 10px 5px; }
+    .user p span {
+      font-weight: bold; }
+  .user input {
+    width: 30%; }

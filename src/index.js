@@ -2,9 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
 import ReduxThunk from 'redux-thunk';
 import cardListReducers from './reducers';
 import App from './containers/App';
+import Users from './containers/Users';
 
 /* eslint-disable no-underscore-dangle */
 const store = createStore(
@@ -16,7 +22,16 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router>
+      <div>
+        <div>
+          <Link to="/">Home</Link>
+          <Link to="/users">Users</Link>
+        </div>
+        <Route exact path="/" component={App}/>
+        <Route path="/users" component={Users}/>
+      </div>
+    </Router>
   </Provider>,
   document.getElementById('root')
 );

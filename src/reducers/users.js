@@ -1,4 +1,4 @@
-import {LOAD_USERS, LOGIN, LOGOUT} from '../actions';
+import {LOAD_USERS, LOGIN, LOGOUT, DEL_USER} from '../actions';
 
 const initialState = {
   users: [],
@@ -26,6 +26,11 @@ const users = (state = initialState, action) => {
         loggedIn: true,
         username: localStorage.username,
         role: localStorage.role
+      });
+
+    case DEL_USER:
+      return Object.assign({}, state, {
+        users : state.users.filter(user => user.username !== action.user.username)
       });
 
     default:

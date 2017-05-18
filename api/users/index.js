@@ -56,8 +56,8 @@ users.post('/', (req,res) =>{
   });
 });
 
-users.delete('/:id', (req,res) =>{
-  User.destroy({where: {"id": req.params.id}})
+users.delete('/:username', (req,res) =>{
+  User.destroy({where: {"username": req.params.username}})
   .then(res.json.bind(res))
   .catch(error => {
     console.log(error);
