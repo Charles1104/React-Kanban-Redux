@@ -5,7 +5,21 @@ export const getCardsFromDB = () => {
     credentials: 'include',
   })
   .then( res => res.json())
-  .catch(err => console.log(err));
+  .catch(err => {
+    console.log(err);
+    throw err;
+  });
+};
+
+export const getUsersFromDB = () => {
+  return fetch('/api/users', {
+    credentials: 'include',
+  })
+  .then( res => res.json())
+  .catch(err => {
+    console.log(err);
+    throw err;
+  });
 };
 
 export const addCardtoDB = (card) => {
@@ -21,7 +35,10 @@ export const addCardtoDB = (card) => {
       body: JSON.stringify(card)
     })
     .then((res) => (res.json()))
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.log(err);
+      throw err;
+    });
 };
 
 export const fetchDel = (cardToDelete) => {
@@ -34,7 +51,10 @@ export const fetchDel = (cardToDelete) => {
       credentials: 'include',
     })
     .then((res) => (res.json()))
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.log(err);
+      throw err;
+    });
 };
 
 export const fetchMove = (cardToUpdate) => {
@@ -48,7 +68,10 @@ export const fetchMove = (cardToUpdate) => {
       body: JSON.stringify({"status":cardToUpdate.status})
     })
     .then((res) => (res.json()))
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.log(err);
+      throw err;
+    });
 };
 
 export const fetchSignout = () => {
@@ -56,11 +79,13 @@ export const fetchSignout = () => {
       credentials: 'include',
     })
     .then(localStorage.clear())
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.log(err);
+      throw err;
+    });
 };
 
 export const fetchSignin = (body) => {
-  console.log(body);
   return fetch("/api/login", {
       headers: {
         'Accept': 'application/json',
@@ -76,7 +101,10 @@ export const fetchSignin = (body) => {
     localStorage.setItem('username', data.username);
     localStorage.setItem('role', data.role);
   })
-  .catch(err => console.log(err));
+  .catch(err => {
+    console.log(err);
+    throw err;
+  });
 };
 
 export const fetchSignup = (body) => {
@@ -93,5 +121,8 @@ export const fetchSignup = (body) => {
     .then( data => {
       data.json()
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.log(err);
+      throw err;
+    });
 };

@@ -1,8 +1,9 @@
 /*jshint esversion: 6 */
 
-import { getCardsFromDB, addCardtoDB, fetchDel, fetchMove, fetchSignout, fetchSignin, fetchSignup } from '../fetch/fetch.db';
+import { getCardsFromDB, getUsersFromDB, addCardtoDB, fetchDel, fetchMove, fetchSignout, fetchSignin, fetchSignup } from '../fetch/fetch.db';
 
 export const LOAD_CARDS = 'LOAD_CARDS';
+export const LOAD_USERS = 'LOAD_USERS';
 export const ADD_CARD = 'ADD_CARD';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
@@ -22,6 +23,18 @@ export const loadCards = () => {
   };
 };
 
+export const loadUsers = () => {
+  return dispatch => {
+    return getUsersFromDB()
+      .then(users => {
+        dispatch({
+          type: LOAD_USERS,
+          users
+        });
+      })
+      .catch(err => console.log(err));
+  };
+};
 
 export const addCard = card => {
   return dispatch => {

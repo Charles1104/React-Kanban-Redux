@@ -48,7 +48,7 @@ class App extends Component {
         break;
       }
     }
-    this.props.move(cardToUpdate)
+    this.props.move(cardToUpdate);
   }
 
   moveLeft(id){
@@ -65,7 +65,7 @@ class App extends Component {
         break;
       }
     }
-    this.props.move(cardToUpdate)
+    this.props.move(cardToUpdate);
   }
 
   render() {
