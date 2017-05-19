@@ -1,6 +1,9 @@
 import React from 'react';
 import { loadUsers, removeU } from '../../actions';
 import { connect } from 'react-redux';
+import {
+  Link
+} from 'react-router-dom';
 import User from '../../components/User';
 
 class Users extends React.Component {
@@ -33,6 +36,7 @@ class Users extends React.Component {
     return (
       <div >
         <h1>List of Users</h1>
+        <Link to="/"> <img className="home" alt="HomePage" src="/images/home.png"/></Link>
         { this.props.users
             .map( user => <User user={user} key={user.username} >
               {this.props.role === "A" &&

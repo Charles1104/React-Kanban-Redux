@@ -18,7 +18,8 @@ cards.get('/', (req,res) => {
         model:User,
         as:"Assignor"
       }
-    ]
+    ],
+    order: [['createdAt','DESC']]
   })
     .then((cards) => {
       res.json(cards);
@@ -40,8 +41,13 @@ cards.post('/', (req,res) =>{
 });
 
 cards.put('/:id', (req,res) =>{
-  Card.update({"status": req.body.status},{where: {"id": req.params.id}})
-  .then(res.json.bind(res))
+  Card.update(
+  {"status": req.body.status},
+  { where: {"id": req.params.id},
+  returning: true,
+  plain: true,
+  })
+  .then(card => res.json(card[1].dataValues))
   .catch(error => {
     console.log("PUT ERROR",error);
   });

@@ -23,6 +23,7 @@ const cards = (state = initialState, action) => {
       });
 
     case DEL_CARD:
+    console.log(action.card);
       return Object.assign({}, state, {
         cards : state.cards.filter(card => card.id !== action.card.id)
       });

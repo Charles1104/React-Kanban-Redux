@@ -11,7 +11,6 @@ const Card = (props) => (
       <p> <span>Priority:</span> { props.card.priority }</p>
       <p> <span>Assigned to:</span> { props.card.assigned_to}</p>
       <p> <span>Created by:</span> { localStorage.username }</p>
-      <p> <span>Priority:</span> { props.card.priority }</p>
       <p> <span>Created at:</span> { props.card.createdAt.slice(0,10).concat(' | ', props.card.createdAt.slice(11,16)) }</p>
     </div>
 

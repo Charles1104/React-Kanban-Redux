@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {
+  Link
+} from 'react-router-dom';
 import KanbanMap from '../../components/KanbanMap';
 import NewCardForm from '../NewCardForm';
 import NewLogin from '../NewLogin';
@@ -74,7 +77,7 @@ class App extends Component {
         <div className="App">
           <h1>KANBAN - CARDS</h1>
           <div className="LogHeader">
-
+            <Link to="/users"> <img alt="HomePage" src="/images/usersLogo.png"/></Link>
             <p>You are logged in as {this.props.username} and you have
             {this.props.username === 'Charly' ? ' ADMIN rights' : ' USER rights'} </p>
             <input className="logout" type="button" onClick={this.props.signout} value="Log out"/>

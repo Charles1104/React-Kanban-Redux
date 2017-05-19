@@ -4,8 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import {
   BrowserRouter as Router,
-  Route,
-  Link
+  Route
 } from 'react-router-dom';
 import ReduxThunk from 'redux-thunk';
 import cardListReducers from './reducers';
@@ -24,10 +23,6 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <div>
-        <div>
-          <Link to="/">Home</Link>
-          <Link to="/users">Users</Link>
-        </div>
         <Route exact path="/" component={App}/>
         <Route path="/users" component={Users}/>
       </div>
