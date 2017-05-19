@@ -19,14 +19,14 @@ module.exports = function(sequelize, DataTypes) {
         User.hasMany(models.Card, {
           foreignKey:{
             name: 'created_by',
-            allowNull: false
-          }
+            allowNull: false,
+          },
         });
         User.hasMany(models.Card, {
           foreignKey:{
             name: 'assigned_to',
-            allowNull: false
-          }
+            allowNull: false,
+          },
         });
       }
     }

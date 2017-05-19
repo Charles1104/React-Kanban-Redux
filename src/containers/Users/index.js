@@ -34,7 +34,7 @@ class Users extends React.Component {
 
   render(){
     return (
-      <div >
+      <div className="listUser" >
         <h1>List of Users</h1>
         <Link to="/"> <img className="home" alt="HomePage" src="/images/home.png"/></Link>
         { this.props.users

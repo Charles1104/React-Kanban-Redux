@@ -19,7 +19,11 @@ const cards = (state = initialState, action) => {
 
     case MOV_CARD:
       return Object.assign({}, state, {
-        cards : state.cards.filter(card => card.id !== action.card.id).concat(action.card)
+        cards : state.cards.filter(card => card.id !== action.card.id)
+                  .concat(action.card)
+                  .sort(function(a, b) {
+                    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+                  })
       });
 
     case DEL_CARD:

@@ -3,8 +3,8 @@
 
 body {
   background-image: url("/images/triangular.png");
-  width: 90%;
-  margin-left: 5%;
+  width: 95%;
+  margin-left: 2.5%;
   font-family: 'Yrsa', serif; }
 
 h1 {
@@ -39,22 +39,33 @@ h3 {
   display: flex;
   flex-direction: column;
   background-color: #7F7D6F;
-  width: 30%; }
+  width: 32%; }
+
+.Queue, .Progress, .Done {
+  width: 80%;
+  margin-top: 5%;
+  margin-left: 10%;
+  margin-bottom: 10%;
+  box-shadow: 2px 4px 6px #444;
+  -moz-box-shadow: 2px 4px 6px #444;
+  -webkit-box-shadow: 2px 4px 6px #444;
+  transform: rotate(-5.5deg);
+  -moz-transform: rotate(-5.5deg);
+  -webkit-transform: rotate(-5.5deg);
+  -o-transform: rotate(-5.5deg);
+  -ms-transform: rotate(-5.5deg);
+ }
 
 .Queue {
-  background-image: url("/images/post-it-pink.png");
-  background-size: cover;
-  width: 100%;
+  background: #E3AD81;
  }
 
 .Progress {
-  background-image: url("/images/post-it-yellow.png");
-  background-size: cover;
+  background: #ffffa5;
  }
 
 .Done {
-  background-image: url("/images/postitgreen.png");
-  background-size: cover;
+  background: #C1DC85;
  }
 
 .buttons {
@@ -63,10 +74,9 @@ h3 {
   margin-top: 8px;
   margin-bottom: 5px;
   margin-left: 13px;
-  -webkit-transform: rotate(-5.5deg);
   color: #1B8F15; }
 
-.buttonL, .buttonR, .delUser, .logout {
+.buttonL, .buttonR, .delUser, .logout, .close {
   font-family: 'Yrsa', serif;
   background-color: #DEE4E8;
   border: none;
@@ -79,16 +89,16 @@ h3 {
   cursor: pointer;
   border: 2px solid #555555; }
 
-.buttonL:hover, .buttonR:hover, .delUser:hover, .logout:hover  {
+.buttonL:hover, .buttonR:hover, .delUser:hover, .logout:hover, .close:hover  {
   background-color: #75746E;
   color: white; }
 
 .text{
   margin-left: 30px;
-  margin-top: 19%;
-  -webkit-transform: rotate(-5.5deg);
 
   p{
+    font-family: "Lucida Handwriting", cursive;
+    font-size:15px;
     margin-top: 6px;
     margin-bottom: 4px;
     span{
@@ -124,25 +134,10 @@ select {
 }
 
 .close {
-  display: flex;
-  justify-content: space-around;
   margin-top: 12px;
   margin-bottom: 5px;
   margin-left: 13px;
-  -webkit-transform: rotate(-5.5deg);
   color: black;
-
-  font-family: 'Yrsa', serif;
-  background-color: #DEE4E8;
-  border: none;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  -webkit-transition-duration: 0.4s;
-  transition-duration: 0.4s;
-  cursor: pointer;
-  border: 2px solid #555555;
 }
 
 .LogHeader {
